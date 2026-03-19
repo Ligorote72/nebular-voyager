@@ -25,16 +25,17 @@ export default function Checkout() {
     ).join('\n');
 
     const message = encodeURIComponent(
-      `*NUEVO PEDIDO - LUVENIA*\n` +
-      `--------------------------------\n` +
-      `👤 *Cliente:* ${customerInfo.name}\n` +
-      `📍 *Ciudad:* ${customerInfo.city}\n` +
-      `🆔 *Pedido:* ${orderId}\n` +
-      `--------------------------------\n` +
-      `📦 *Productos:*\n${itemsList}\n` +
-      `--------------------------------\n` +
-      `💰 *TOTAL ESTIMADO:* $${subtotal.toLocaleString('es-CO')}\n\n` +
-      `Hola, me gustaría concretar este pedido para el envío. ¿Me indican cómo proceder?`
+      `✨ *¡Hola Luvenia!* ✨\n` +
+      `He estado explorando la colección en la web y me he enamorado de estas fragancias. 🛍️💖\n\n` +
+      `*Aquí tienes los detalles de mi pedido:*\n` +
+      `------------------------------------------\n` +
+      `👤 *A nombre de:* ${customerInfo.name}\n` +
+      `📍 *Destino:* ${customerInfo.city}\n` +
+      `🆔 *Referencia:* ${orderId}\n\n` +
+      `📦 *Mi Selección:*\n${itemsList}\n\n` +
+      `✨ *Inversión Total:* $${subtotal.toLocaleString('es-CO')}\n` +
+      `------------------------------------------\n\n` +
+      `Quedo a la espera de sus indicaciones para el pago y el envío. ¡Muchas gracias por la atención personalizada! ✨🌸`
     );
 
     // Redirección inmediata
