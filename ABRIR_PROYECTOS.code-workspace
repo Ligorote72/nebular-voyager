@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "Perfumería (LUVENIA)",
+			"path": "."
+		},
+		{
+			"name": "Finanzas (MoneyFlow)",
+			"path": "../money-flow"
+		}
+	],
+	"settings": {}
+}

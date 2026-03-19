@@ -1,0 +1,226 @@
+.checkout-page {
+  padding-top: 120px;
+  padding-bottom: var(--spacing-xxl);
+}
+
+.checkout-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: var(--spacing-xxl);
+  align-items: start;
+}
+
+.checkout-form-section h1 {
+  margin-bottom: var(--spacing-xl);
+}
+
+/* Steps */
+.checkout-step {
+  margin-bottom: var(--spacing-lg);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.step-header {
+  padding: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  background: var(--color-surface);
+}
+
+.step-num {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+}
+
+.step-content {
+  padding: var(--spacing-lg);
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Forms */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.span-2 {
+  grid-column: span 2;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid rgba(0,0,0,0.1);
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  transition: border-color var(--transition-fast);
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--color-text-primary);
+}
+
+/* Shipping Methods */
+.shipping-methods {
+  margin-bottom: var(--spacing-xl);
+}
+
+.shipping-methods h4 {
+  margin-bottom: var(--spacing-md);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.method-option {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  border: 1px solid rgba(0,0,0,0.1);
+  margin-bottom: var(--spacing-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.method-option.selected {
+  border-color: var(--color-text-primary);
+  background: var(--color-surface);
+}
+
+.method-option input {
+  margin-right: var(--spacing-md);
+}
+
+.method-info {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.method-info .price {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+/* Payment */
+.payment-form .card-input {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  border: 1px solid rgba(0,0,0,0.1);
+  padding-left: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.payment-form .card-input input {
+  border: none;
+}
+
+/* Order Summary */
+.order-summary {
+  background: var(--color-surface);
+  padding: var(--spacing-xl);
+  position: sticky;
+  top: 120px;
+}
+
+.order-summary h3 {
+  margin-bottom: var(--spacing-lg);
+  font-size: 1.5rem;
+}
+
+.summary-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-text-secondary);
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-size: 1.25rem;
+}
+
+.summary-promo {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xl);
+}
+
+.summary-promo button {
+  padding: 0 var(--spacing-md);
+}
+
+.checkout-badges {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.checkout-badges .badge {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+/* Success */
+.checkout-success {
+  padding: var(--spacing-xxl) 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+@media (max-width: 900px) {
+  .checkout-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .order-summary {
+    position: static;
+    order: -1;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .span-2 {
+    grid-column: span 1;
+  }
+}
+
+.whatsapp-btn {
+  width: 100%;
+  margin-top: var(--spacing-xl);
+  background: #25D366;
+  border-color: #25D366;
+  color: white;
+}
+
+.whatsapp-btn:hover {
+  background: #128C7E;
+  border-color: #128C7E;
+  color: white;
+}
