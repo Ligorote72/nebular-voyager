@@ -32,9 +32,9 @@ export default function Home() {
           <span className="hero-subtitle">LUVENIA / Alta Perfumería</span>
           <h1 className="hero-title">La Esencia de la Pureza.</h1>
           <p className="hero-description">
-            Descubre nuestra colección curada de lociones premium, 
-            diseñadas para elevar tu ritual diario con hidratación elegante 
-            y fragancias atemporales.
+            Descubre nuestra colección curada de fragancias premium, 
+            diseñadas para elevar tu estilo con elegancia 
+            y aromas atemporales.
           </p>
           <div className="hero-actions">
             <Link to="/shop" className="btn btn-primary">
@@ -44,8 +44,8 @@ export default function Home() {
         </div>
         <div className="hero-image-wrapper">
           <img 
-            src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=2787&auto=format&fit=crop" 
-            alt="Botella de Loción de Lujo" 
+            src="/img/hero_dior.jpg" 
+            alt="Dior Sauvage Hero" 
             className="hero-image"
           />
         </div>
