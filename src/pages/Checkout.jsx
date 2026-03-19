@@ -2,72 +2,48 @@ import { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { CheckCircle, ArrowLeft, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import jsPDF from 'jspdf';
 import './Checkout.css';
 
 export default function Checkout() {
   const { cart, subtotal, clearCart } = useCart();
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
   const [customerInfo, setCustomerInfo] = useState({
     name: '',
     city: ''
   });
 
-  const generatePDF = () => {
-    const doc = new jsPDF();
-    const orderId = `NEB-${Math.floor(Math.random() * 900000 + 100000)}`;
-    
-    doc.setFontSize(22);
-    doc.text('LUVENIA - Resumen de Pedido', 20, 20);
-    
-    doc.setFontSize(12);
-    doc.text(`ID de Orden: ${orderId}`, 20, 30);
-    doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 20, 35);
-    doc.text(`Cliente: ${customerInfo.name}`, 20, 45);
-    doc.text(`Ciudad: ${customerInfo.city}`, 20, 52);
-    
-    doc.line(20, 60, 190, 60);
-    
-    let y = 70;
-    cart.forEach((item) => {
-      doc.text(`${item.name} x ${item.quantity}`, 20, y);
-      doc.text(`$${(item.price * item.quantity).toLocaleString('es-CO')}`, 160, y);
-      y += 10;
-    });
-    
-    doc.line(20, y, 190, y);
-    doc.setFontSize(14);
-    doc.text(`Total: $${subtotal.toLocaleString('es-CO')}`, 145, y + 10);
-    
-    // Guardar/Descargar el PDF
-    doc.save(`Pedido_Luvenia_${orderId}.pdf`);
-    
-    return { orderId };
-  };
-
   const handleWhatsAppOrder = (e) => {
     e.preventDefault();
-    setIsGenerating(true);
+    setIsRedirecting(true);
     
-    const { orderId } = generatePDF();
+    // Generar un ID simple para referencia
+    const orderId = `LUV-${Math.floor(Math.random() * 9000 + 1000)}`;
     
-    // Simular preparación de documento y redirección
+    const itemsList = cart.map(item => 
+      `• ${item.name} x${item.quantity} ($${(item.price * item.quantity).toLocaleString('es-CO')})`
+    ).join('\n');
+
+    const message = encodeURIComponent(
+      `*NUEVO PEDIDO - LUVENIA*\n` +
+      `--------------------------------\n` +
+      `👤 *Cliente:* ${customerInfo.name}\n` +
+      `📍 *Ciudad:* ${customerInfo.city}\n` +
+      `🆔 *Pedido:* ${orderId}\n` +
+      `--------------------------------\n` +
+      `📦 *Productos:*\n${itemsList}\n` +
+      `--------------------------------\n` +
+      `💰 *TOTAL ESTIMADO:* $${subtotal.toLocaleString('es-CO')}\n\n` +
+      `Hola, me gustaría concretar este pedido para el envío. ¿Me indican cómo proceder?`
+    );
+
+    // Redirección inmediata
     setTimeout(() => {
-      setIsGenerating(false);
-      setOrderComplete(true);
-      
-      const message = encodeURIComponent(
-        `¡Hola! Soy ${customerInfo.name} de ${customerInfo.city}.\n` +
-        `Quisiera concretar mi pedido ${orderId}.\n\n` +
-        `📦 **Adjunto te envío el PDF con el resumen de mi pedido que acabo de descargar.**\n\n` +
-        `Total a pagar: $${subtotal.toLocaleString('es-CO')}\n\n` +
-        `Por favor, indíquenme cómo proceder con el pago.`
-      );
-      
       window.open(`https://wa.me/573114441818?text=${message}`, '_blank');
+      setIsRedirecting(false);
+      setOrderComplete(true);
       clearCart();
-    }, 1500);
+    }, 1000);
   };
 
   if (cart.length === 0 && !orderComplete) {
@@ -84,8 +60,8 @@ export default function Checkout() {
     return (
       <div className="checkout-success container animate-fade-in">
         <CheckCircle size={64} color="#25D366" />
-        <h1>¡Pedido en Camino!</h1>
-        <p>Tu resumen PDF se ha descargado. Te hemos redirigido a WhatsApp para finalizar el pago con tu asesor.</p>
+        <h1>¡Pedido Enviado!</h1>
+        <p>Te hemos redirigido a WhatsApp con el resumen de tu compra. Tu asesor te atenderá allí para finalizar el pago.</p>
         <Link to="/" className="btn btn-primary mt-4">Volver al Inicio</Link>
       </div>
     );
@@ -109,7 +85,7 @@ export default function Checkout() {
                 <input 
                   required 
                   type="text" 
-                  placeholder="Nombre completo" 
+                  placeholder="Tu nombre completo" 
                   className="span-2"
                   value={customerInfo.name}
                   onChange={(e) => setCustomerInfo({...customerInfo, name: e.target.value})}
@@ -117,7 +93,7 @@ export default function Checkout() {
                 <input 
                   required 
                   type="text" 
-                  placeholder="Ciudad de destino" 
+                  placeholder="Ciudad de envío" 
                   className="span-2"
                   value={customerInfo.city}
                   onChange={(e) => setCustomerInfo({...customerInfo, city: e.target.value})}
@@ -125,9 +101,9 @@ export default function Checkout() {
               </div>
             </div>
             
-            <button type="submit" className="btn btn-primary whatsapp-btn" disabled={isGenerating}>
+            <button type="submit" className="btn btn-primary whatsapp-btn" disabled={isRedirecting}>
               <MessageCircle size={18} style={{marginRight: '10px'}} />
-              {isGenerating ? 'Generando PDF y Redirigiendo...' : 'Coordinar por WhatsApp'}
+              {isRedirecting ? 'Preparando mensaje...' : 'Completar Pedido (WhatsApp)'}
             </button>
           </form>
         </div>
